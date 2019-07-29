@@ -6,6 +6,7 @@ import android.graphics.PointF;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Handler;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,6 +40,8 @@ import de.westnordost.streetcomplete.quests.bikeway.AddCycleway;
 import de.westnordost.streetcomplete.util.SlippyMapMath;
 import de.westnordost.osmapi.map.data.BoundingBox;
 import de.westnordost.osmapi.map.data.LatLon;
+
+import static de.westnordost.streetcomplete.oauth.OsmOAuthDialogFragment.TAG;
 
 public class QuestsMapFragment extends MapFragment implements TouchInput.TapResponder,
 		MapController.LabelPickListener
@@ -96,6 +99,7 @@ public class QuestsMapFragment extends MapFragment implements TouchInput.TapResp
 
 	@Override public void onStart()
 	{
+		Log.wtf(TAG, "onStart");
 		super.onStart();
 		questTypeOrder = new HashMap<>();
 		int order = 0;
@@ -109,6 +113,8 @@ public class QuestsMapFragment extends MapFragment implements TouchInput.TapResp
 		{
 			lastDisplayedRect = SlippyMapMath.enclosingTiles(displayedArea, TILES_ZOOM);
 			updateQuestsInRect(lastDisplayedRect);
+		} else {
+			Log.wtf(TAG, "displayedArea is null");
 		}
 	}
 
@@ -310,9 +316,11 @@ public class QuestsMapFragment extends MapFragment implements TouchInput.TapResp
 
 	private void updateQuestsInRect(Rect tilesRect)
 	{
+		Log.wtf(TAG, "updateQuestsInRect");
 		// area to big -> skip ( see https://github.com/tangrams/tangram-es/issues/1492 )
 		if(tilesRect.width() * tilesRect.height() > 4)
 		{
+			Log.wtf(TAG, "updateQuestsInRect returned - too big");
 			return;
 		}
 
@@ -320,9 +328,13 @@ public class QuestsMapFragment extends MapFragment implements TouchInput.TapResp
 		tiles.removeAll(retrievedTiles);
 
 		Rect minRect = SlippyMapMath.minRect(tiles);
-		if(minRect == null) return;
+		if(minRect == null) {
+			Log.wtf(TAG, "updateQuestsInRect returned - minRect is null");
+			return;
+		}
 		BoundingBox bbox = SlippyMapMath.asBoundingBox(minRect, TILES_ZOOM);
 
+		Log.wtf(TAG, "onFirstInView is called");
 		listener.onFirstInView(bbox);
 
 		// debugging

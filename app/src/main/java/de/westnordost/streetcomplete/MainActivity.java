@@ -31,6 +31,7 @@ import androidx.preference.PreferenceManager;
 import androidx.appcompat.widget.Toolbar;
 import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -47,6 +48,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import static de.westnordost.streetcomplete.oauth.OsmOAuthDialogFragment.TAG;
 
 import com.mapzen.tangram.LngLat;
 
@@ -1073,6 +1075,7 @@ public class MainActivity extends AppCompatActivity implements
 
 	@Override public void onFirstInView(BoundingBox bbox)
 	{
+		Log.wtf(TAG, "onFirstInView");
 		questController.retrieve(bbox);
 	}
 
