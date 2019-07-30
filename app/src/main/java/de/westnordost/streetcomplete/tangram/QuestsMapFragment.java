@@ -317,7 +317,7 @@ public class QuestsMapFragment extends MapFragment implements TouchInput.TapResp
 	private void updateQuestsInRect(Rect tilesRect)
 	{
 		Log.wtf(TAG, "updateQuestsInRect");
-		// area to big -> skip ( see https://github.com/tangrams/tangram-es/issues/1492 )
+		// area too big -> skip ( see https://github.com/tangrams/tangram-es/issues/1492 )
 		if(tilesRect.width() * tilesRect.height() > 4)
 		{
 			Log.wtf(TAG, "updateQuestsInRect returned - too big");
