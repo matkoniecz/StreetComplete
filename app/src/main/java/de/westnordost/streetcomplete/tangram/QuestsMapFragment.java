@@ -99,7 +99,7 @@ public class QuestsMapFragment extends MapFragment implements TouchInput.TapResp
 
 	@Override public void onStart()
 	{
-		Log.wtf(TAG, "onStart");
+		Log.wtf(TAG, "onStart in QuestsMapFragment");
 		super.onStart();
 		questTypeOrder = new HashMap<>();
 		int order = 0;
@@ -131,6 +131,7 @@ public class QuestsMapFragment extends MapFragment implements TouchInput.TapResp
 
 	@Override public void onStop()
 	{
+		Log.wtf(TAG, "onStop in QuestsMapFragment");
 		super.onStop();
 		/* When reentering the fragment, the database may have changed (quest download in
 		*  background or change in settings), so the quests must be pulled from DB again */
