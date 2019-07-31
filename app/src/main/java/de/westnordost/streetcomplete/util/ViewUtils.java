@@ -1,8 +1,12 @@
 package de.westnordost.streetcomplete.util;
 
 import androidx.annotation.NonNull;
+
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
+
+import static de.westnordost.streetcomplete.oauth.OsmOAuthDialogFragment.TAG;
 
 public class ViewUtils
 {
@@ -18,6 +22,7 @@ public class ViewUtils
 					try {
 						vto.removeOnGlobalLayoutListener(this);
 					} catch (IllegalStateException e) {
+						Log.wtf(TAG, "removeOnGlobalLayoutListener failed");
 						// ignore: checking isAlive before is not sufficient (race condition)
 					}
 					runnable.run();
