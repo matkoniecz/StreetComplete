@@ -87,6 +87,7 @@ import de.westnordost.streetcomplete.quests.bench_backrest.AddBenchBackrest
 import de.westnordost.streetcomplete.quests.wheelchair_access.AddWheelchairAccessOutside
 import de.westnordost.streetcomplete.quests.ferry.AddFerryAccessMotorVehicle
 import de.westnordost.streetcomplete.quests.ferry.AddFerryAccessPedestrian
+import de.westnordost.streetcomplete.quests.parking_roadside.AddParkingRoadside
 import de.westnordost.streetcomplete.quests.wheelchair_access.AddWheelchairAccessToiletsPart
 
 @Module
@@ -98,7 +99,7 @@ object QuestModule
         trafficFlowSegmentsApi: TrafficFlowSegmentsApi, trafficFlowDao: WayTrafficFlowDao,
         featureDictionaryFuture: FutureTask<FeatureDictionary>
     ): QuestTypeRegistry = QuestTypeRegistry(listOf(
-        
+
         // ↓ 1. notes
         osmNoteQuestType,
 
@@ -159,6 +160,7 @@ object QuestModule
         // ↓ 6. may be shown as possibly missing in QA tools
 
         // ↓ 7. data useful for only a specific use case
+        AddParkingRoadside(o), // used by A/B Street
         AddWayLit(o), //  used by OsmAnd if "Street lighting" is enabled. (Configure map, Map rendering, Details)
         AddToiletsFee(o), // used by OsmAnd in the object description
         AddBabyChangingTable(o), // used by OsmAnd in the object description
