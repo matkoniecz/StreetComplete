@@ -71,8 +71,8 @@ class AddParkingRoadside(private val overpassApi: OverpassMapDataAndGeometryApi)
             "[area != yes]" +
             // only without parking lane tags
             "[!'parking:lane:left'][!'parking:lane:right'][!'parking:lane:both']" +
-            // not any motorroads
-            "[motorroad != yes]" +
+            // not any motorroads or roundabouts
+            "[motorroad != yes][junction != roundabout]" +
             // not in tunnels
             "[tunnel != yes]" +
             // not any unpaved ones
