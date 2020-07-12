@@ -69,14 +69,19 @@ class AddParkingRoadside(private val overpassApi: OverpassMapDataAndGeometryApi)
         return bbox.toGlobalOverpassBBox() + "\n" +
             "way[highway ~ '^(trunk|trunk_link|primary|primary_link|secondary|secondary_link|tertiary|tertiary_link|unclassified|residential|living_street)$']" +
             "[area != yes]" +
-            // not any motorroads
-            "[motorroad != yes]" +
             // only without parking lane tags
             "[!'parking:lane:left'][!'parking:lane:right'][!'parking:lane:both']" +
+            // not any motorroads
+            "[motorroad != yes]" +
+            // not in tunnels
+            "[tunnel != yes]" +
             // not any unpaved ones
             "[surface !~ '^(" + ANYTHING_UNPAVED.joinToString("|") + ")$']" +
-            // not any private ones
+            // not any private ones, asking here about parking access is tricky at best
             "[access !~ '^(private|no)$']" +
+            "[vehicle !~ '^(private|no)$']" +
+            // not any with very high speed limit because they not very likely to have parking lanes
+            "[maxspeed !~ '^(70|80|90|[1-9][0-9][0-9]|45 mph|50 mph|55 mph|60 mph|65 mph|70 mph)$']" +
             " -> .streets;\n" +
             "(\n" +
                 "  node[amenity=parking](around.streets: " + minDistToParkings + ");\n" +
