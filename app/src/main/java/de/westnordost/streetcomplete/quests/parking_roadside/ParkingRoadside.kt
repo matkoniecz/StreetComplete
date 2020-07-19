@@ -20,9 +20,8 @@ enum class ParkingRoadside(private val iconResId: Int, private val iconResIdLeft
         if (isLeftHandTraffic) iconResIdLeft else iconResId
 
     companion object {
-        // some of the values defined above are special values that should not be visible by default
         val displayValues = listOf(
-            PARALLEL, DIAGONAL, PERPENDICULAR, NO_PARKING, NO_STOPPING, NO_STOPPING_FIRE_LANE
+            PARALLEL, DIAGONAL, PERPENDICULAR, NO_PARKING, NO_STOPPING, NO_STOPPING_FIRE_LANE, NO_GENERIC
         )
     }
 }
