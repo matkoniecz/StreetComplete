@@ -856,5 +856,6 @@ Otherwise, you can download another keyboard in the app store. Popular keyboards
     <string name="quest_parking_roadside_value_no_parking">No parking</string>
     <string name="quest_parking_roadside_value_no_stopping">No parking, no stopping</string>
     <string name="quest_parking_roadside_value_no_stopping_fire_lane">Fire lane - no parking or stopping</string>
+    <string name="quest_parking_roadside_value_no_generic">generic no</string>
 
 </resources>

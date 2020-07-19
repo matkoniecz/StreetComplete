@@ -133,6 +133,9 @@ class AddParkingRoadside(private val overpassApi: OverpassMapDataAndGeometryApi)
             ParkingRoadside.NO_STOPPING_FIRE_LANE  -> {
                 changes.add(parkingRoadsideKey, "fire_lane")
             }
+            ParkingRoadside.NO_GENERIC  -> {
+                changes.add(parkingRoadsideKey, "no")
+            }
         }
     }
 }
