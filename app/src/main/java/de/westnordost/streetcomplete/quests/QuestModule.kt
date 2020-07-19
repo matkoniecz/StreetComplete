@@ -69,8 +69,6 @@ import de.westnordost.streetcomplete.quests.toilets_fee.AddToiletsFee
 import de.westnordost.streetcomplete.quests.tourism_information.AddInformationToTourism
 import de.westnordost.streetcomplete.quests.tracktype.AddTracktype
 import de.westnordost.streetcomplete.quests.construction.MarkCompletedConstructionMinorOrGeneric
-import de.westnordost.streetcomplete.quests.ferry.AddFerryAccessMotorVehicle
-import de.westnordost.streetcomplete.quests.ferry.AddFerryAccessPedestrian
 import de.westnordost.streetcomplete.quests.traffic_signals_button.AddTrafficSignalsButton
 import de.westnordost.streetcomplete.quests.way_lit.AddWayLit
 import de.westnordost.streetcomplete.quests.wheelchair_access.AddWheelchairAccessPublicTransport
@@ -87,6 +85,9 @@ import de.westnordost.streetcomplete.quests.sport.AddSport
 import de.westnordost.streetcomplete.quests.surface.*
 import de.westnordost.streetcomplete.quests.traffic_signals_sound.AddTrafficSignalsSound
 import de.westnordost.streetcomplete.quests.validator.*
+import de.westnordost.streetcomplete.quests.ferry.AddFerryAccessMotorVehicle
+import de.westnordost.streetcomplete.quests.ferry.AddFerryAccessPedestrian
+import de.westnordost.streetcomplete.quests.parking_roadside.AddParkingRoadside
 import de.westnordost.streetcomplete.quests.wheelchair_access.AddWheelchairAccessToiletsPart
 import java.util.concurrent.FutureTask
 import de.westnordost.streetcomplete.quests.wheelchair_access.*
@@ -105,7 +106,7 @@ object QuestModule
             featureDictionaryFuture: FutureTask<FeatureDictionary>
     ): QuestTypeRegistry = QuestTypeRegistry(listOf(
             //modified--
-            //DetailRoadSurface(o), // my quest in testing
+            AddParkingRoadside(o), // used by A/B Street
             ShowFixme(o), // my quest
             AddWayLit(o), //frequent enable/disable cycle (enable for night) - moved
             //--modified
