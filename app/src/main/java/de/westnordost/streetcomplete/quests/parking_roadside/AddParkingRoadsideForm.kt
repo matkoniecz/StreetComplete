@@ -18,18 +18,7 @@ class AddParkingRoadsideForm : AbstractQuestFormAnswerFragment<ParkingRoadsideAn
     override val contentLayoutResId = R.layout.quest_street_side_puzzle
     override val contentPadding = false
 
-    override val otherAnswers: List<OtherAnswer> get() {
-        val isNoRoundabout = osmElement!!.tags["junction"] != "roundabout"
-        val result = mutableListOf<OtherAnswer>()
-        if (!isDefiningBothSides && isNoRoundabout) {
-            result.add(OtherAnswer(R.string.quest_cycleway_answer_contraflow_cycleway) { showBothSides() })
-        }
-        return result
-    }
-
     private var streetSideRotater: StreetSideRotater? = null
-
-    private var isDefiningBothSides: Boolean = false
 
     private var leftSide: ParkingRoadside? = null
     private var rightSide: ParkingRoadside? = null
@@ -49,10 +38,6 @@ class AddParkingRoadsideForm : AbstractQuestFormAnswerFragment<ParkingRoadsideAn
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // TODO is it neeeded
-        isDefiningBothSides = savedInstanceState?.getBoolean(DEFINE_BOTH_SIDES)
-                ?: true
-
         savedInstanceState?.getString(CYCLEWAY_RIGHT)?.let { rightSide = ParkingRoadside.valueOf(it) }
         savedInstanceState?.getString(CYCLEWAY_LEFT)?.let { leftSide = ParkingRoadside.valueOf(it) }
     }
@@ -63,18 +48,26 @@ class AddParkingRoadsideForm : AbstractQuestFormAnswerFragment<ParkingRoadsideAn
         puzzleView.listener = { isRight -> showCyclewaySelectionDialog(isRight) }
 
         streetSideRotater = StreetSideRotater(puzzleView, compassNeedleView, elementGeometry as ElementPolylinesGeometry)
-
-        if (!isDefiningBothSides) {
-            if (isLeftHandTraffic) puzzleView.showOnlyLeftSide()
-            else                   puzzleView.showOnlyRightSide()
-        }
-
         val defaultResId =
             if (isLeftHandTraffic) R.drawable.ic_cycleway_unknown_l
             else                   R.drawable.ic_cycleway_unknown
 
-        puzzleView.setLeftSideImageResource(leftSide?.getIconResId(isLeftHandTraffic) ?: defaultResId)
-        puzzleView.setRightSideImageResource(rightSide?.getIconResId(isLeftHandTraffic) ?: defaultResId)
+        val oppositeResId =
+                if (isLeftHandTraffic) R.drawable.ic_cycleway_unknown
+                else                   R.drawable.ic_cycleway_unknown_l
+
+        if(!isOneway) {
+            puzzleView.setLeftSideImageResource(leftSide?.getIconResId(isLeftHandTraffic) ?: defaultResId)
+            puzzleView.setRightSideImageResource(rightSide?.getIconResId(isLeftHandTraffic) ?: defaultResId)
+        } else if (isForwardOneway) {
+            puzzleView.setLeftSideImageResource(rightSide?.getIconResId(!isLeftHandTraffic) ?: oppositeResId)
+            puzzleView.setRightSideImageResource(rightSide?.getIconResId(isLeftHandTraffic) ?: defaultResId)
+        } else if (isReversedOneway){
+            puzzleView.setLeftSideImageResource(leftSide?.getIconResId(isLeftHandTraffic) ?: defaultResId)
+            puzzleView.setRightSideImageResource(leftSide?.getIconResId(!isLeftHandTraffic) ?: oppositeResId)
+        } else {
+            throw IllegalStateException("oneway should be either forward or reversed, other situations are not handled")
+        }
 
         checkIsFormComplete()
     }
@@ -83,7 +76,6 @@ class AddParkingRoadsideForm : AbstractQuestFormAnswerFragment<ParkingRoadsideAn
         super.onSaveInstanceState(outState)
         rightSide?.let { outState.putString(CYCLEWAY_RIGHT, it.name) }
         leftSide?.let { outState.putString(CYCLEWAY_LEFT, it.name) }
-        outState.putBoolean(DEFINE_BOTH_SIDES, isDefiningBothSides)
     }
 
     @AnyThread
@@ -98,9 +90,7 @@ class AddParkingRoadsideForm : AbstractQuestFormAnswerFragment<ParkingRoadsideAn
         ))
     }
 
-    override fun isFormComplete() =
-        if (isDefiningBothSides) leftSide != null && rightSide != null
-        else                     leftSide != null || rightSide != null
+    override fun isFormComplete() =  leftSide != null && rightSide != null
 
     override fun isRejectingClose() = leftSide != null || rightSide != null
 
@@ -139,15 +129,8 @@ class AddParkingRoadsideForm : AbstractQuestFormAnswerFragment<ParkingRoadsideAn
         return values
     }
 
-    private fun showBothSides() {
-        isDefiningBothSides = true
-        puzzleView.showBothSides()
-        checkIsFormComplete()
-    }
-
     companion object {
         private const val CYCLEWAY_LEFT = "cycleway_left"
         private const val CYCLEWAY_RIGHT = "cycleway_right"
-        private const val DEFINE_BOTH_SIDES = "define_both_sides"
     }
 }
