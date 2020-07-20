@@ -88,6 +88,7 @@ import de.westnordost.streetcomplete.quests.validator.*
 import de.westnordost.streetcomplete.quests.ferry.AddFerryAccessMotorVehicle
 import de.westnordost.streetcomplete.quests.ferry.AddFerryAccessPedestrian
 import de.westnordost.streetcomplete.quests.parking_roadside.AddParkingRoadside
+import de.westnordost.streetcomplete.quests.parking_roadside.AddParkingRoadsideNearParking
 import de.westnordost.streetcomplete.quests.wheelchair_access.AddWheelchairAccessToiletsPart
 import java.util.concurrent.FutureTask
 import de.westnordost.streetcomplete.quests.wheelchair_access.*
@@ -107,6 +108,7 @@ object QuestModule
     ): QuestTypeRegistry = QuestTypeRegistry(listOf(
             //modified--
             AddParkingRoadside(o), // used by A/B Street
+            AddParkingRoadsideNearParking(o),
             ShowFixme(o), // my quest
             AddWayLit(o), //frequent enable/disable cycle (enable for night) - moved
             //--modified
