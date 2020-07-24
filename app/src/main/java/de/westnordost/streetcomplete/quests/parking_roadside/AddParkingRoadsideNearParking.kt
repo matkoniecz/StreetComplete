@@ -14,44 +14,7 @@ import de.westnordost.streetcomplete.data.tagfilters.toGlobalOverpassBBox
 
 import de.westnordost.streetcomplete.quests.bikeway.Cycleway.*
 
-class AddParkingRoadsideNearParking(private val overpassApi: OverpassMapDataAndGeometryApi) : OsmElementQuestType<ParkingRoadsideAnswer> {
-
-    override val commitMessage = "Add type of parking beside road"
-    override val wikiLink = "Key:parking_lane"
-    override val icon = R.drawable.ic_quest_parking // TODO needs a dedicated icon!
-
-    // TODO - limit enablement?
-    /*
-    // See overview here: https://ent8r.github.io/blacklistr/?streetcomplete=bikeway/AddCycleway.kt
-    // #749. sources:
-    // Google Street View (driving around in virtual car)
-    // https://en.wikivoyage.org/wiki/Cycling
-    // http://peopleforbikes.org/get-local/ (US)
-    override val enabledInCountries = NoCountriesExcept(
-            // all of Northern and Western Europe, most of Central Europe, some of Southern Europe
-            "NO", "SE", "FI", "IS", "DK",
-            "GB", "IE", "NL", "BE", "FR", "LU",
-            "DE", "PL", "CZ", "HU", "AT", "CH", "LI",
-            "ES", "IT",
-            // East Asia
-            "JP", "KR", "TW",
-            // some of China (East Coast)
-            "CN-BJ", "CN-TJ", "CN-SD", "CN-JS", "CN-SH",
-            "CN-ZJ", "CN-FJ", "CN-GD", "CN-CQ",
-            // Australia etc
-            "NZ", "AU",
-            // some of Canada
-            "CA-BC", "CA-QC", "CA-ON", "CA-NS", "CA-PE",
-            // some of the US
-            // West Coast, East Coast, Center, South
-            "US-WA", "US-OR", "US-CA",
-            "US-MA", "US-NJ", "US-NY", "US-DC", "US-CT", "US-FL",
-            "US-MN", "US-MI", "US-IL", "US-WI", "US-IN",
-            "US-AZ", "US-TX"
-    )
-    */
-
-    override val isSplitWayEnabled = true
+class AddParkingRoadsideNearParking(private val overpassApi: OverpassMapDataAndGeometryApi) : AddParkingRoadside(overpassApi) {
 
     override fun getTitle(tags: Map<String, String>) = R.string.quest_parking_roadside_near_parking_title
 
@@ -93,50 +56,5 @@ class AddParkingRoadsideNearParking(private val overpassApi: OverpassMapDataAndG
                 "(.streets; - .streets_near_parkings;) -> .queried_far_away_from_parking;\n" +
                 "(.streets; - .queried_far_away_from_parking;);\n" +
                 getQuestPrintStatement()
-    }
-
-    override fun createForm() = AddParkingRoadsideForm()
-
-    override fun applyAnswerTo(answer: ParkingRoadsideAnswer, changes: StringMapChangesBuilder) {
-        answer.apply {
-            if (left == right) {
-                left?.let { applyParkingRoadsideAnswerTo(it, Side.BOTH, changes) }
-            } else {
-                left?.let { applyParkingRoadsideAnswerTo(it, Side.LEFT, changes) }
-                right?.let { applyParkingRoadsideAnswerTo(it, Side.RIGHT, changes) }
-            }
-        }
-    }
-
-    private enum class Side(val value: String) {
-        LEFT("left"), RIGHT("right"), BOTH("both")
-    }
-
-    private fun applyParkingRoadsideAnswerTo(parkingRoadside: ParkingRoadside, side: Side,
-                                             changes: StringMapChangesBuilder ) {
-        val parkingRoadsideKey = "parking:lane:" + side.value
-        when (parkingRoadside) {
-            ParkingRoadside.PARALLEL  -> {
-                changes.add(parkingRoadsideKey, "parallel")
-            }
-            ParkingRoadside.DIAGONAL  -> {
-                changes.add(parkingRoadsideKey, "diagonal")
-            }
-            ParkingRoadside.PERPENDICULAR  -> {
-                changes.add(parkingRoadsideKey, "perpendicular")
-            }
-            ParkingRoadside.NO_PARKING  -> {
-                changes.add(parkingRoadsideKey, "no_parking")
-            }
-            ParkingRoadside.NO_STOPPING  -> {
-                changes.add(parkingRoadsideKey, "no_stopping")
-            }
-            ParkingRoadside.NO_STOPPING_FIRE_LANE  -> {
-                changes.add(parkingRoadsideKey, "fire_lane")
-            }
-            ParkingRoadside.NO_GENERIC  -> {
-                changes.add(parkingRoadsideKey, "no")
-            }
-        }
     }
 }

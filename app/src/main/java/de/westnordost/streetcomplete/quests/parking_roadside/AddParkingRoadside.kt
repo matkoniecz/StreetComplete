@@ -13,7 +13,7 @@ import de.westnordost.streetcomplete.data.tagfilters.toGlobalOverpassBBox
 
 import de.westnordost.streetcomplete.quests.bikeway.Cycleway.*
 
-class AddParkingRoadside(private val overpassApi: OverpassMapDataAndGeometryApi) : OsmElementQuestType<ParkingRoadsideAnswer> {
+open class AddParkingRoadside(private val overpassApi: OverpassMapDataAndGeometryApi) : OsmElementQuestType<ParkingRoadsideAnswer> {
 
     override val commitMessage = "Add type of parking beside road"
     override val wikiLink = "Key:parking_lane"
@@ -135,6 +135,9 @@ class AddParkingRoadside(private val overpassApi: OverpassMapDataAndGeometryApi)
             }
             ParkingRoadside.NO_GENERIC  -> {
                 changes.add(parkingRoadsideKey, "no")
+            }
+            ParkingRoadside.INDIVIDUAL_SPOTS -> {
+                changes.add(parkingRoadsideKey, "marked")
             }
         }
     }
