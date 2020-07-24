@@ -136,6 +136,9 @@ class AddParkingRoadside(private val overpassApi: OverpassMapDataAndGeometryApi)
             ParkingRoadside.NO_GENERIC  -> {
                 changes.add(parkingRoadsideKey, "no")
             }
+            ParkingRoadside.INDIVIDUAL_SPOTS -> {
+                changes.add(parkingRoadsideKey, "marked")
+            }
         }
     }
 }

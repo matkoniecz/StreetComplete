@@ -11,8 +11,8 @@ enum class ParkingRoadside(private val iconResId: Int, private val iconResIdLeft
     NO_GENERIC            (R.drawable.ic_cycleway_suggestion_lane,  R.drawable.ic_cycleway_suggestion_lane,     R.string.quest_parking_roadside_value_no_generic ),
     NO_PARKING            (R.drawable.ic_cycleway_bus_lane,    R.drawable.ic_cycleway_bus_lane,     R.string.quest_parking_roadside_value_no_parking ),
     NO_STOPPING           (R.drawable.ic_cycleway_pictograms,  R.drawable.ic_cycleway_pictograms,   R.string.quest_parking_roadside_value_no_stopping ),
-    NO_STOPPING_FIRE_LANE (R.drawable.ic_cycleway_none,        R.drawable.ic_cycleway_none,         R.string.quest_parking_roadside_value_no_stopping_fire_lane );
-    //INDIVIDUAL_SPOTS      (R.drawable.ic_cycleway_none,        R.drawable.ic_cycleway_none,         R.string.quest_parking_lane_value_individual_marked ), // marked - how to describe this? Via Cant say?
+    NO_STOPPING_FIRE_LANE (R.drawable.ic_cycleway_none,        R.drawable.ic_cycleway_none,         R.string.quest_parking_roadside_value_no_stopping_fire_lane ),
+    INDIVIDUAL_SPOTS      (R.drawable.ic_cycleway_none,        R.drawable.ic_cycleway_none,         R.string.quest_parking_lane_value_individual_marked );
 
     fun asItem(isLeftHandTraffic: Boolean) = Item(this, getIconResId(isLeftHandTraffic), nameResId)
 
@@ -21,7 +21,7 @@ enum class ParkingRoadside(private val iconResId: Int, private val iconResIdLeft
 
     companion object {
         val displayValues = listOf(
-            PARALLEL, DIAGONAL, PERPENDICULAR, NO_PARKING, NO_STOPPING, NO_STOPPING_FIRE_LANE, NO_GENERIC
+            PARALLEL, DIAGONAL, PERPENDICULAR, NO_PARKING, NO_STOPPING, NO_STOPPING_FIRE_LANE, NO_GENERIC, INDIVIDUAL_SPOTS
         )
     }
 }
