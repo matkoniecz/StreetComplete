@@ -11,6 +11,7 @@ import de.westnordost.streetcomplete.quests.OtherAnswer
 import de.westnordost.streetcomplete.quests.StreetSideRotater
 import de.westnordost.streetcomplete.view.dialogs.ImageListPickerDialog
 import kotlinx.android.synthetic.main.quest_street_side_puzzle.*
+import kotlinx.android.synthetic.main.view_little_compass.*
 
 
 class AddParkingRoadsideForm : AbstractQuestFormAnswerFragment<ParkingRoadsideAnswer>() {

@@ -71,10 +71,6 @@ import de.westnordost.streetcomplete.quests.tracktype.AddTracktype
 import de.westnordost.streetcomplete.quests.construction.MarkCompletedConstructionMinorOrGeneric
 import de.westnordost.streetcomplete.quests.traffic_signals_button.AddTrafficSignalsButton
 import de.westnordost.streetcomplete.quests.way_lit.AddWayLit
-import de.westnordost.streetcomplete.quests.wheelchair_access.AddWheelchairAccessPublicTransport
-import de.westnordost.streetcomplete.quests.wheelchair_access.AddWheelchairAccessToilets
-import de.westnordost.streetcomplete.quests.wheelchair_access.AddWheelchairAccessBusiness
-import de.westnordost.streetcomplete.quests.wheelchair_access.AddWheelchairAccessOutside
 import de.westnordost.streetcomplete.quests.fixme_show.ShowFixme
 import de.westnordost.streetcomplete.quests.footway.AddFootway
 import de.westnordost.streetcomplete.quests.localized_name.AddRoadName
@@ -93,7 +89,6 @@ import de.westnordost.streetcomplete.quests.wheelchair_access.AddWheelchairAcces
 import java.util.concurrent.FutureTask
 import de.westnordost.streetcomplete.quests.wheelchair_access.*
 import javax.inject.Singleton
-
 
 @Module
 object QuestModule
