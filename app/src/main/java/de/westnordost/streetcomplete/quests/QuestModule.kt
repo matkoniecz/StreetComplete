@@ -69,6 +69,7 @@ import de.westnordost.streetcomplete.quests.toilets_fee.AddToiletsFee
 import de.westnordost.streetcomplete.quests.tourism_information.AddInformationToTourism
 import de.westnordost.streetcomplete.quests.tracktype.AddTracktype
 import de.westnordost.streetcomplete.quests.construction.MarkCompletedConstructionMinorOrGeneric
+import de.westnordost.streetcomplete.quests.fixme_show.ShowAddressInterpolation
 import de.westnordost.streetcomplete.quests.traffic_signals_button.AddTrafficSignalsButton
 import de.westnordost.streetcomplete.quests.way_lit.AddWayLit
 import de.westnordost.streetcomplete.quests.fixme_show.ShowFixme
@@ -105,6 +106,7 @@ object QuestModule
             AddParkingRoadside(o), // used by A/B Street
             AddParkingRoadsideNearParking(o),
             ShowFixme(o), // my quest
+            ShowAddressInterpolation(o), // my quest
             AddWayLit(o), //frequent enable/disable cycle (enable for night) - moved
             //--modified
 
