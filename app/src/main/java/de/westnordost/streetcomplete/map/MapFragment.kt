@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.PointF
 import android.graphics.RectF
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +15,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Interpolator
 import androidx.annotation.CallSuper
 import androidx.core.content.edit
+import androidx.core.net.toUri
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
@@ -40,7 +40,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
-import okhttp3.*
+import okhttp3.Cache
+import okhttp3.CacheControl
+import okhttp3.HttpUrl
+import okhttp3.Request
 import okhttp3.internal.Version
 import java.io.File
 import java.util.*
@@ -105,7 +108,7 @@ open class MapFragment : Fragment(),
     }
 
     private fun openUrl(url: String): Boolean {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        val intent = Intent(Intent.ACTION_VIEW, url.toUri())
         return tryStartActivity(intent)
     }
 
@@ -231,7 +234,7 @@ open class MapFragment : Fragment(),
     }
 
     private fun createHttpHandler(): HttpHandler {
-        val cacheSize = PreferenceManager.getDefaultSharedPreferences(context).getInt(Prefs.MAP_TILECACHE_IN_MB, 50)
+        val builder = DefaultHttpHandler.getClientBuilder()
         val cacheDir = requireContext().externalCacheDir
         val tileCacheDir: File?
         if (cacheDir != null) {
@@ -240,17 +243,13 @@ open class MapFragment : Fragment(),
         } else {
             tileCacheDir = null
         }
+        if (tileCacheDir?.exists() == true) {
+            val cacheSize = PreferenceManager.getDefaultSharedPreferences(context).getInt(Prefs.MAP_TILECACHE_IN_MB, 50)
+            builder.cache(Cache(tileCacheDir, cacheSize * 1024L * 1024L))
+        }
 
-        return object : DefaultHttpHandler() {
-
+        return object : DefaultHttpHandler(builder) {
             val cacheControl = CacheControl.Builder().maxStale(7, TimeUnit.DAYS).build()
-
-            override fun configureClient(builder: OkHttpClient.Builder) {
-                if (tileCacheDir?.exists() == true) {
-                    builder.cache(Cache(tileCacheDir, cacheSize * 1024L * 1024L))
-                }
-            }
-
             override fun configureRequest(url: HttpUrl, builder: Request.Builder) {
                 builder
                     .cacheControl(cacheControl)
@@ -354,6 +353,12 @@ open class MapFragment : Fragment(),
     fun getPositionAt(point: PointF): LatLon? = controller?.screenPositionToLatLon(point)
 
     fun getPointOf(pos: LatLon): PointF? = controller?.latLonToScreenPosition(pos)
+
+    fun getClippedPointOf(pos: LatLon): PointF? {
+        val screenPositionOut = PointF()
+        controller?.latLonToScreenPosition(pos, screenPositionOut, true) ?: return null
+        return screenPositionOut
+    }
 
     val cameraPosition: CameraPosition?
         get() = controller?.cameraPosition
