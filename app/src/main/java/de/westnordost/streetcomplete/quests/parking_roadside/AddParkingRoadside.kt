@@ -3,15 +3,13 @@ package de.westnordost.streetcomplete.quests.parking_roadside
 import de.westnordost.osmapi.map.data.BoundingBox
 import de.westnordost.osmapi.map.data.Element
 import de.westnordost.streetcomplete.R
+import de.westnordost.streetcomplete.data.elementfilter.getQuestPrintStatement
+import de.westnordost.streetcomplete.data.elementfilter.toGlobalOverpassBBox
 import de.westnordost.streetcomplete.data.meta.ANYTHING_UNPAVED
 import de.westnordost.streetcomplete.data.osm.elementgeometry.ElementGeometry
 import de.westnordost.streetcomplete.data.osm.osmquest.OsmElementQuestType
 import de.westnordost.streetcomplete.data.osm.changes.StringMapChangesBuilder
 import de.westnordost.streetcomplete.data.osm.mapdata.OverpassMapDataAndGeometryApi
-import de.westnordost.streetcomplete.data.tagfilters.getQuestPrintStatement
-import de.westnordost.streetcomplete.data.tagfilters.toGlobalOverpassBBox
-
-import de.westnordost.streetcomplete.quests.bikeway.Cycleway.*
 
 class AddParkingRoadside(private val overpassApi: OverpassMapDataAndGeometryApi) : OsmElementQuestType<ParkingRoadsideAnswer> {
 
