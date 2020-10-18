@@ -38,7 +38,6 @@ class DescribeGenericSurfaceDialog(
 
         setOnShowListener {
             getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = false
-            getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.GRAY)
             explanationInput.addTextChangedListener(object : TextWatcher {
                 override fun onTextChanged(s: CharSequence, start: Int, before: Int,
                                            count: Int) {
@@ -51,11 +50,6 @@ class DescribeGenericSurfaceDialog(
                 override fun afterTextChanged(s: Editable) {
                     val txt = explanationInput.text.toString().trim()
                     getButton(DialogInterface.BUTTON_POSITIVE).isEnabled = txt.isNotEmpty()
-                    if(txt.isNotEmpty()) {
-                        getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.rgb(209, 64, 0)) // accent color is D14000
-                    } else {
-                        getButton(DialogInterface.BUTTON_POSITIVE).setTextColor(Color.GRAY)
-                    }
                 }
             })
         }
