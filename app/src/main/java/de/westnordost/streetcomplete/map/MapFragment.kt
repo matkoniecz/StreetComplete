@@ -5,7 +5,6 @@ import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.PointF
 import android.graphics.RectF
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -16,6 +15,7 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.Interpolator
 import androidx.annotation.CallSuper
 import androidx.core.content.edit
+import androidx.core.net.toUri
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
@@ -40,7 +40,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
-import okhttp3.*
+import okhttp3.Cache
+import okhttp3.CacheControl
+import okhttp3.HttpUrl
+import okhttp3.Request
 import okhttp3.internal.Version
 import java.io.File
 import java.util.*
@@ -105,7 +108,7 @@ open class MapFragment : Fragment(),
     }
 
     private fun openUrl(url: String): Boolean {
-        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        val intent = Intent(Intent.ACTION_VIEW, url.toUri())
         return tryStartActivity(intent)
     }
 
@@ -347,6 +350,14 @@ open class MapFragment : Fragment(),
 
     /* ------------------------------- Controlling the map -------------------------------------- */
 
+    public fun adjustToOffsets(oldOffset: RectF, newOffset: RectF) {
+        controller?.screenCenterToLatLon(oldOffset)?.let { pos ->
+            controller?.updateCameraPosition {
+                position = controller?.getLatLonThatCentersLatLon(pos, newOffset)
+            }
+        }
+    }
+
     fun getPositionAt(point: PointF): LatLon? = controller?.screenPositionToLatLon(point)
 
     fun getPointOf(pos: LatLon): PointF? = controller?.latLonToScreenPosition(pos)
@@ -379,10 +390,6 @@ open class MapFragment : Fragment(),
 
     fun getPositionThatCentersPosition(pos: LatLon, offset: RectF): LatLon? {
         return controller?.getLatLonThatCentersLatLon(pos, offset)
-    }
-
-    fun getViewPosition(offset: RectF): LatLon? {
-        return controller?.screenCenterToLatLon(offset)
     }
 
     var show3DBuildings: Boolean = true

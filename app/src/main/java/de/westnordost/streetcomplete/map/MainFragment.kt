@@ -26,14 +26,16 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.UiThread
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
+import androidx.core.content.getSystemService
 import androidx.core.graphics.minus
 import androidx.core.graphics.toPointF
 import androidx.core.graphics.toRectF
 import androidx.core.view.children
+import androidx.core.view.isGone
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager.POP_BACK_STACK_INCLUSIVE
-import androidx.fragment.app.FragmentTransaction
+import androidx.fragment.app.commit
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import de.westnordost.osmapi.map.data.BoundingBox
 import de.westnordost.osmapi.map.data.LatLon
@@ -59,17 +61,15 @@ import de.westnordost.streetcomplete.location.LocationState
 import de.westnordost.streetcomplete.location.LocationUtil
 import de.westnordost.streetcomplete.map.tangram.CameraPosition
 import de.westnordost.streetcomplete.quests.*
-import de.westnordost.streetcomplete.util.SoundFx
 import de.westnordost.streetcomplete.util.*
 import kotlinx.android.synthetic.main.fragment_main.*
-import java.util.*
-import javax.inject.Inject
-import kotlin.math.PI
-import de.westnordost.streetcomplete.util.initialBearingTo
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
+import java.util.*
+import javax.inject.Inject
+import kotlin.math.PI
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -133,10 +133,7 @@ class MainFragment : Fragment(R.layout.fragment_main),
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        locationManager = FineLocationManager(
-            context.getSystemService(Context.LOCATION_SERVICE) as LocationManager,
-            this::onLocationChanged
-        )
+        locationManager = FineLocationManager(context.getSystemService<LocationManager>()!!, this::onLocationChanged)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -186,19 +183,14 @@ class MainFragment : Fragment(R.layout.fragment_main),
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        val mapFragment = mapFragment ?: return
-        /* when rotating the screen and the bottom sheet is open, the view should not rotate around
-           its proper center but around the center of the part of the map that is not occluded by
-           the bottom sheet */
+        val mapFragment = this.mapFragment ?: return
+        /* when rotating the screen and the bottom sheet is open, the view
+           should not rotate around its proper center but around the center
+           of the part of the map that is not occluded by the bottom sheet */
+        val previousOffset = mapOffsetWithOpenBottomSheet
+        updateMapQuestOffsets()
         if (bottomSheetFragment != null) {
-            val currentPos = mapFragment.getViewPosition(mapOffsetWithOpenBottomSheet)
-            updateMapQuestOffsets()
-            if (currentPos != null) {
-                val offsetPos = mapFragment.getPositionThatCentersPosition(currentPos, mapOffsetWithOpenBottomSheet)
-                mapFragment.updateCameraPosition { position = offsetPos }
-            }
-        } else {
-            updateMapQuestOffsets()
+            mapFragment.adjustToOffsets(previousOffset, mapOffsetWithOpenBottomSheet)
         }
         updateLocationPointerPin()
     }
@@ -236,7 +228,10 @@ class MainFragment : Fragment(R.layout.fragment_main),
     /* ---------------------------------- MapFragment.Listener ---------------------------------- */
 
     override fun onMapInitialized() {
-        gpsTrackingButton.isActivated = mapFragment?.isFollowingPosition ?: false
+        val isFollowingPosition = mapFragment?.isFollowingPosition ?: false
+        val isPositionKnown = mapFragment?.displayedLocation != null
+        gpsTrackingButton.isActivated = isFollowingPosition
+        gpsTrackingButton.visibility = if (isFollowingPosition && isPositionKnown) View.INVISIBLE else View.VISIBLE
         updateLocationPointerPin()
     }
 
@@ -308,10 +303,6 @@ class MainFragment : Fragment(R.layout.fragment_main),
             if (!f.onClickMapAt(position, clickAreaSizeInMeters))
                 f.onClickClose { closeBottomSheet() }
         }
-    }
-
-    override fun onClickedLocationMarker() {
-        setIsFollowingPosition(true)
     }
 
     /* -------------------------- AbstractQuestAnswerFragment.Listener -------------------------- */
@@ -460,7 +451,8 @@ class MainFragment : Fragment(R.layout.fragment_main),
     }
 
     private fun onLocationChanged(location: Location) {
-        gpsTrackingButton?.visibility = View.INVISIBLE
+        val isFollowingPosition = mapFragment?.isFollowingPosition ?: false
+        gpsTrackingButton?.visibility = if (isFollowingPosition) View.INVISIBLE else View.VISIBLE
         gpsTrackingButton?.state = LocationState.UPDATING
         updateLocationPointerPin()
     }
@@ -550,7 +542,7 @@ class MainFragment : Fragment(R.layout.fragment_main),
     }
 
     private fun isConnected(): Boolean {
-        val connectivityManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager?
+        val connectivityManager = context?.getSystemService<ConnectivityManager>()
         val activeNetworkInfo = connectivityManager?.activeNetworkInfo
         return activeNetworkInfo != null && activeNetworkInfo.isConnected
     }
@@ -569,9 +561,10 @@ class MainFragment : Fragment(R.layout.fragment_main),
         val mapFragment = mapFragment ?: return
         mapFragment.isFollowingPosition = follow
         gpsTrackingButton.isActivated = follow
+        val isPositionKnown = mapFragment.displayedLocation != null
+        gpsTrackingButton?.visibility = if (isPositionKnown && follow) View.INVISIBLE else View.VISIBLE
         if (!follow) setIsCompassMode(false)
     }
-
 
     private fun setIsCompassMode(compassMode: Boolean) {
         val mapFragment = mapFragment ?: return
@@ -643,9 +636,8 @@ class MainFragment : Fragment(R.layout.fragment_main),
         val intersection = findClosestIntersection(mapControls, target)
         if (intersection != null) {
             val intersectionPosition = mapFragment.getPositionAt(intersection)
+            locationPointerPin.isGone = intersectionPosition == null
             if (intersectionPosition != null) {
-                locationPointerPin.visibility = View.VISIBLE
-
                 val angleAtIntersection = position.initialBearingTo(intersectionPosition)
                 locationPointerPin.pinRotation = angleAtIntersection.toFloat() + (180 * rotation / PI).toFloat()
 
@@ -654,8 +646,6 @@ class MainFragment : Fragment(R.layout.fragment_main),
                 val offsetY = (-cos(a) / 2.0 + 0.5) * locationPointerPin.height
                 locationPointerPin.x = intersection.x - offsetX.toFloat()
                 locationPointerPin.y = intersection.y - offsetY.toFloat()
-            } else {
-                locationPointerPin.visibility = View.GONE
             }
         } else {
             locationPointerPin.visibility = View.GONE
@@ -663,7 +653,7 @@ class MainFragment : Fragment(R.layout.fragment_main),
     }
 
     private fun onClickLocationPointer() {
-        setIsFollowingPosition(true)
+        mapFragment?.centerCurrentPosition()
     }
 
     /* --------------------------------- Managing bottom sheet  --------------------------------- */
@@ -682,7 +672,7 @@ class MainFragment : Fragment(R.layout.fragment_main),
         // manually close the keyboard before popping the fragment
         val view: View? = activity?.currentFocus
         if (view != null) {
-            val inputMethodManager = context?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager?
+            val inputMethodManager = context?.getSystemService<InputMethodManager>()
             inputMethodManager?.hideSoftInputFromWindow(view.windowToken, 0)
         }
         childFragmentManager.popBackStackImmediate(BOTTOM_SHEET, POP_BACK_STACK_INCLUSIVE)
@@ -712,11 +702,11 @@ class MainFragment : Fragment(R.layout.fragment_main),
     private fun showInBottomSheet(f: Fragment) {
         val appearAnim = if (bottomSheetFragment == null) R.animator.quest_answer_form_appear else 0
         val disappearAnim = R.animator.quest_answer_form_disappear
-        val ft: FragmentTransaction = childFragmentManager.beginTransaction()
-        ft.setCustomAnimations(appearAnim, disappearAnim, appearAnim, disappearAnim)
-        ft.replace(R.id.map_bottom_sheet_container, f, BOTTOM_SHEET)
-        ft.addToBackStack(BOTTOM_SHEET)
-        ft.commit()
+        childFragmentManager.commit {
+            setCustomAnimations(appearAnim, disappearAnim, appearAnim, disappearAnim)
+            replace(R.id.map_bottom_sheet_container, f, BOTTOM_SHEET)
+            addToBackStack(BOTTOM_SHEET)
+        }
     }
 
     private fun closeQuestDetailsFor(questId: Long, group: QuestGroup) {
