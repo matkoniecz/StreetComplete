@@ -21,7 +21,7 @@ enum class BarrierType(val osmValue: String) {
     DEBRIS_PILE("debris"), //https://commons.wikimedia.org/wiki/File:Landslide_on_OR_42S_(46849629014).jpg
     STILE_SQUEEZER("stile"),// https://en.wikipedia.org/wiki/File:Squeezer_stile._-_geograph.org.uk_-_110502.jpg
     STILE_LADDER("stile"), // https://www.geograph.org.uk/photo/42040
-    STILE_STEPOVER("stile"), // https://www.geograph.org.uk/photo/5185330
+    STILE_STEPOVER("stile"), // https://www.geograph.org.uk/photo/69563
     KISSING_GATE("kissing_gate"),  //https://commons.wikimedia.org/wiki/File:Kissing_gate_near_Trillinghurst_Farm_-_geograph.org.uk_-_1512534.jpg https://commons.wikimedia.org/wiki/File:Kissing_Gate_above_Colvithick_Wood_-_geograph.org.uk_-_109914.jpg
     BICYCLE_BARRIER("cycle_barrier") // https://commons.wikimedia.org/wiki/File:Stade_municipal_Claude_Daragon_%C3%A0_Pecqueuse_le_6_ao%C3%BBt_2016_-_02.jpg
 }
