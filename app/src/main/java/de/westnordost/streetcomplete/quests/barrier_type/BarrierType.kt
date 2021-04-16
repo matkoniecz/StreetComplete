@@ -4,10 +4,11 @@ enum class BarrierType(val osmValue: String) {
     // /home/mateusz/Documents/install_moje/rescale-for-android
     GATE("gate"), // https://commons.wikimedia.org/wiki/File:Abbess_Roding_-_roadside_white_gate_-_Essex_England.jpg (or something else from https://commons.wikimedia.org/wiki/Category:Barred_gates )
     LIFT_GATE("lift_gate"), // https://wiki.openstreetmap.org/wiki/File:Lift_gate.jpg
+    SWING_GATE("swing_gate"), // https://commons.wikimedia.org/wiki/File:21_Szlaban_le%C5%9Bny_ogranicza_wjazd_samochodem_do_lasu_-_Forest_area_barrier_in_Poland,_Creative_Commons_Attribution.jpg
     BOLLARD("bollard"), // https://commons.wikimedia.org/wiki/File:Stilpoller_Kugelkopf.jpg
     CHAIN("chain"), // https://commons.wikimedia.org/wiki/File:Andernach_-_Schlossstra%C3%9Fe_-_Schloss_Burg_Namedy_26_ies.jpg
     ROPE("rope"), // https://wiki.openstreetmap.org/wiki/File:Black_Red_Gold_Rope_at_German_Bundestag_in_Berlin_2010.jpg
-    WIRE_GATE("hampshire_gate"),
+    WIRE_GATE("hampshire_gate"), // https://commons.wikimedia.org/wiki/File:Wire_gate.jpgg
     CATTLE_GRID("cattle_grid"),// https://wiki.openstreetmap.org/wiki/File:Cattle_grid.jpg
     BLOCK("block"), // https://commons.wikimedia.org/wiki/File:Oblast_mezi_Libe%C5%88sk%C3%BDm_mostem_a_Negrelliho_viaduktem_(06).jpg
     JERSEY_BARRIER("jersey_barrier"), // https://commons.wikimedia.org/wiki/File:BarreiraNewJersey.JPG https://commons.wikimedia.org/wiki/Category:Jersey_barriers

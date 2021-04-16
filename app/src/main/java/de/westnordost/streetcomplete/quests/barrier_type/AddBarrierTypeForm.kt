@@ -9,7 +9,8 @@ class AddBarrierTypeForm : AImageListQuestAnswerFragment<BarrierType, BarrierTyp
 
     override val items = listOf(
         Item(GATE, R.drawable.barrier_gate, R.string.quest_barrier_type_gate), // optimize description?
-        Item(LIFT_GATE, R.drawable.barrier_lift_gate, R.string.quest_barrier_type_lift_gate), // AKA boom barrier TODO which term use?
+        Item(LIFT_GATE, R.drawable.barrier_lift_gate, R.string.quest_barrier_type_lift_gate),
+        Item(SWING_GATE, R.drawable.barrier_swing_gate, R.string.quest_barrier_type_swing_gate),
         Item(BOLLARD, R.drawable.barrier_bollard, R.string.quest_barrier_type_bollard),
         Item(CHAIN, R.drawable.barrier_chain, R.string.quest_barrier_type_chain),
         Item(ROPE, R.drawable.barrier_rope, R.string.quest_barrier_type_rope),
