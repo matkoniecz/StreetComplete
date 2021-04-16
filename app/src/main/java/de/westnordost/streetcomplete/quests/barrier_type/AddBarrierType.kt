@@ -8,6 +8,14 @@ class AddBarrierType : OsmFilterQuestType<BarrierType>() {
 
     override val elementFilter = """
         nodes with barrier=yes
+         and !man_made
+         and !historic
+         and !military
+         and !power
+         and !tourism
+         and !attraction
+         and !amenity
+         and !leisure
     """
     override val commitMessage = "Add specific barrier type on a point"
     override val wikiLink = "Key:barrier"
