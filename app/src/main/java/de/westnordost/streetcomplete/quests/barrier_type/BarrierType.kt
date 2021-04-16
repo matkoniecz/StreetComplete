@@ -20,8 +20,8 @@ enum class BarrierType(val osmValue: String) {
     PASSAGE("entrance"), // https://wiki.openstreetmap.org/wiki/File:Archway_between_walled_gardens,_Greenway_-_geograph.org.uk_-_191221.jpg # https://commons.wikimedia.org/wiki/File:Doorgang_in_muur._Locatie,_Chinese_tuin_Het_Verborgen_Rijk_van_Ming._Locatie._Hortus_Haren_01.jpg?fastcci_from=69893&c1=69893&d1=15&s=200&a=fqv
     DEBRIS_PILE("debris"), //https://commons.wikimedia.org/wiki/File:Landslide_on_OR_42S_(46849629014).jpg
     STILE_SQUEEZER("stile"),// https://en.wikipedia.org/wiki/File:Squeezer_stile._-_geograph.org.uk_-_110502.jpg
-    STILE_LADDER("stile"), // https://en.wikipedia.org/wiki/File:Ladder_stile_Snowdonia.jpg
-    STILE_STEPOVER("stile"), // https://en.wikipedia.org/wiki/File:Stile_with_dog_gate_OS_SY567846.jpg
+    STILE_LADDER("stile"), // https://www.geograph.org.uk/photo/42040
+    STILE_STEPOVER("stile"), // https://www.geograph.org.uk/photo/5185330
     KISSING_GATE("kissing_gate"),  //https://commons.wikimedia.org/wiki/File:Kissing_gate_near_Trillinghurst_Farm_-_geograph.org.uk_-_1512534.jpg https://commons.wikimedia.org/wiki/File:Kissing_Gate_above_Colvithick_Wood_-_geograph.org.uk_-_109914.jpg
     BICYCLE_BARRIER("cycle_barrier") // https://commons.wikimedia.org/wiki/File:Stade_municipal_Claude_Daragon_%C3%A0_Pecqueuse_le_6_ao%C3%BBt_2016_-_02.jpg
 }
