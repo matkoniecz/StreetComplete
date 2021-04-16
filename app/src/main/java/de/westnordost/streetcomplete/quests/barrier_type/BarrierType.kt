@@ -1,7 +1,6 @@
 package de.westnordost.streetcomplete.quests.bike_parking_type
 
 enum class BarrierType(val osmValue: String) {
-    // /home/mateusz/Documents/install_moje/rescale-for-android
     PASSAGE("entrance"), // https://wiki.openstreetmap.org/wiki/File:Archway_between_walled_gardens,_Greenway_-_geograph.org.uk_-_191221.jpg # https://commons.wikimedia.org/wiki/File:Doorgang_in_muur._Locatie,_Chinese_tuin_Het_Verborgen_Rijk_van_Ming._Locatie._Hortus_Haren_01.jpg?fastcci_from=69893&c1=69893&d1=15&s=200&a=fqv
     GATE("gate"), // https://commons.wikimedia.org/wiki/File:Abbess_Roding_-_roadside_white_gate_-_Essex_England.jpg (or something else from https://commons.wikimedia.org/wiki/Category:Barred_gates )
     LIFT_GATE("lift_gate"), // https://wiki.openstreetmap.org/wiki/File:Lift_gate.jpg
