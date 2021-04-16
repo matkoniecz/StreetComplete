@@ -8,6 +8,7 @@ import de.westnordost.streetcomplete.view.image_select.Item
 class AddBarrierTypeForm : AImageListQuestAnswerFragment<BarrierType, BarrierType>() {
 
     override val items = listOf(
+        Item(PASSAGE, R.drawable.barrier_passage, R.string.quest_barrier_type_passage),
         Item(GATE, R.drawable.barrier_gate, R.string.quest_barrier_type_gate), // optimize description?
         Item(LIFT_GATE, R.drawable.barrier_lift_gate, R.string.quest_barrier_type_lift_gate),
         Item(SWING_GATE, R.drawable.barrier_swing_gate, R.string.quest_barrier_type_swing_gate),
@@ -23,7 +24,6 @@ class AddBarrierTypeForm : AImageListQuestAnswerFragment<BarrierType, BarrierTyp
         Item(HEIGHT_RESTRICTOR, R.drawable.barrier_height_restrictor, R.string.quest_barrier_type_height_restrictor),
         Item(FULL_HEIGHT_TURNSTILE, R.drawable.barrier_full_height_turnstile, R.string.quest_barrier_full_height_turnstile),
         Item(TURNSTILE, R.drawable.barrier_turnstile, R.string.quest_barrier_type_turnstile),
-        Item(PASSAGE, R.drawable.barrier_passage, R.string.quest_barrier_type_passage),
         Item(DEBRIS_PILE, R.drawable.barrier_debris_pile, R.string.quest_barrier_type_debris_pile),
         Item(STILE_SQUEEZER, R.drawable.barrier_stile_squeezer, R.string.quest_barrier_type_stile_squeezer),
         Item(STILE_LADDER, R.drawable.barrier_stile_ladder, R.string.quest_barrier_type_stile_ladder),
