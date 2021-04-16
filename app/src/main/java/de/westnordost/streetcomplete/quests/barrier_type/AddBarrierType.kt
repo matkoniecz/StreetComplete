@@ -12,7 +12,7 @@ class AddBarrierType : OsmFilterQuestType<BarrierType>() {
     """
     override val commitMessage = "Add specific barrier type on a point"
     override val wikiLink = "Key:barrier"
-    override val icon = R.drawable.ic_quest_bicycle_parking // TODO fix!
+    override val icon = R.drawable.ic_quest_barrier
     override val isDeleteElementEnabled = true
 
     override fun getTitle(tags: Map<String, String>) = R.string.quest_barrier_type_title
