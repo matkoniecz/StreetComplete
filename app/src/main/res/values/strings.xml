@@ -1012,6 +1012,6 @@ Otherwise, you can download another keyboard in the app store. Popular keyboards
     <string name="quest_barrier_type_stile_ladder">Ladder stile</string>
     <string name="quest_barrier_type_bicycle_barrier">Bicycle barrier</string>
     <string name="quest_barrier_type_kissing_gate">Kissing gate</string>
-    <string name="quest_barrier_type_stepover">Stile with stepping over barrier</string>
+    <string name="quest_barrier_type_stepover">Step-over stile</string>
     <string name="quest_barrier_type_swing_gate">Horizontal bar</string>
 </resources>
