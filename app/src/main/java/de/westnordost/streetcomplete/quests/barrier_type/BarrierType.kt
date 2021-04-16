@@ -5,7 +5,7 @@ enum class BarrierType(val osmValue: String) {
     GATE("gate"), // also fitting for swing gate: https://wiki.openstreetmap.org/wiki/File:Lovely_gates_near_Hollinshead_Swing_Bridge_-_geograph.org.uk_-_844479.jpg
     LIFT_GATE("lift_gate"), // https://wiki.openstreetmap.org/wiki/File:Lift_gate.jpg
     BOLLARD("bollard"), // https://commons.wikimedia.org/wiki/File:Stilpoller_Kugelkopf.jpg
-    CHAIN("chain"), // https://commons.wikimedia.org/wiki/File:Les_Ulis_le_23_ao%C3%BBt_2012_-_21.jpg
+    CHAIN("chain"), // https://commons.wikimedia.org/wiki/File:Andernach_-_Schlossstra%C3%9Fe_-_Schloss_Burg_Namedy_26_ies.jpg
     ROPE("rope"), // https://wiki.openstreetmap.org/wiki/File:Black_Red_Gold_Rope_at_German_Bundestag_in_Berlin_2010.jpg
     WIRE_GATE("hampshire_gate"),
     CATTLE_GRID("cattle_grid"),// https://wiki.openstreetmap.org/wiki/File:Cattle_grid.jpg
@@ -20,16 +20,7 @@ enum class BarrierType(val osmValue: String) {
     DEBRIS_PILE("debris"), //??????????? // https://wiki.openstreetmap.org/wiki/File:Barrier_debris.jpg
     STILE_SQUEEZER("stile"),// https://en.wikipedia.org/wiki/File:Squeezer_stile._-_geograph.org.uk_-_110502.jpg
     STILE_LADDER("stile"), // https://en.wikipedia.org/wiki/File:Ladder_stile_Snowdonia.jpg
-    STILE_STEPOVER("stile"),
+    STILE_STEPOVER("stile"), // https://en.wikipedia.org/wiki/File:Stile_with_dog_gate_OS_SY567846.jpg
     KISSING_GATE("kissing_gate"),  //https://commons.wikimedia.org/wiki/File:Kissing_gate_near_Trillinghurst_Farm_-_geograph.org.uk_-_1512534.jpg https://commons.wikimedia.org/wiki/File:Kissing_Gate_above_Colvithick_Wood_-_geograph.org.uk_-_109914.jpg
+    BICYCLE_BARRIER("cycle_barrier") // https://commons.wikimedia.org/wiki/File:Stade_municipal_Claude_Daragon_%C3%A0_Pecqueuse_le_6_ao%C3%BBt_2016_-_02.jpg
 }
-
-/*
-(bus trap)
-cycle barrier
-(horse stile)
-(motorcycle barrier)
-spikes
-stile
-sump buster
-*/

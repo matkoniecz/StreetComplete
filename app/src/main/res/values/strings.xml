@@ -993,7 +993,7 @@ Otherwise, you can download another keyboard in the app store. Popular keyboards
     <string name="quest_drinking_water_not_potable_unsigned">Not safe to drink (unsigned)</string>
     <string name="quest_barrier_type_title">What type of barrier is this?</string>
     <string name="quest_barrier_type_gate">Gate</string>
-    <string name="quest_barrier_type_lift_gate">Lift gate</string>
+    <string name="quest_barrier_type_lift_gate">Boom barrier</string>
     <string name="quest_barrier_type_bollard">Bollard(s)</string>
     <string name="quest_barrier_type_chain">Chain</string>
     <string name="quest_barrier_type_rope">Rope</string>
@@ -1006,8 +1006,11 @@ Otherwise, you can download another keyboard in the app store. Popular keyboards
     <string name="quest_barrier_type_height_restrictor">Height restrictor</string>
     <string name="quest_barrier_full_height_turnstile">Full height turnstile</string>
     <string name="quest_barrier_type_turnstile">Turnstile</string>
-    <string name="quest_barrier_type_passage">assage through wall/fence/etc</string>
-    <string name="quest_barrier_type_debris_pile">ile of debris</string>
+    <string name="quest_barrier_type_passage">Passage through wall/fence/etc</string>
+    <string name="quest_barrier_type_debris_pile">Pile of debris</string>
     <string name="quest_barrier_type_stile_squeezer">Squeezer stile</string>
     <string name="quest_barrier_type_stile_ladder">Ladder stile</string>
+    <string name="quest_barrier_type_bicycle_barrier">Bicycle barrier</string>
+    <string name="quest_barrier_type_kissing_gate">Kissing gate</string>
+    <string name="quest_barrier_type_stepover">Stile with stepping over barrier</string>
 </resources>
