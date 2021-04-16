@@ -2,7 +2,7 @@ package de.westnordost.streetcomplete.quests.bike_parking_type
 
 enum class BarrierType(val osmValue: String) {
     // /home/mateusz/Documents/install_moje/rescale-for-android
-    GATE("gate"), // also fitting for swing gate: https://wiki.openstreetmap.org/wiki/File:Lovely_gates_near_Hollinshead_Swing_Bridge_-_geograph.org.uk_-_844479.jpg
+    GATE("gate"), // https://commons.wikimedia.org/wiki/File:Abbess_Roding_-_roadside_white_gate_-_Essex_England.jpg (or something else from https://commons.wikimedia.org/wiki/Category:Barred_gates )
     LIFT_GATE("lift_gate"), // https://wiki.openstreetmap.org/wiki/File:Lift_gate.jpg
     BOLLARD("bollard"), // https://commons.wikimedia.org/wiki/File:Stilpoller_Kugelkopf.jpg
     CHAIN("chain"), // https://commons.wikimedia.org/wiki/File:Andernach_-_Schlossstra%C3%9Fe_-_Schloss_Burg_Namedy_26_ies.jpg
@@ -14,7 +14,7 @@ enum class BarrierType(val osmValue: String) {
     LOG("log"), // https://commons.wikimedia.org/wiki/Category:Logs_across_paths https://commons.wikimedia.org/wiki/File:Sihlwald_windthrow_Spinnerweg_20200204_1.jpg
     KERB("curb"), // ????????????????????????
     HEIGHT_RESTRICTOR("height_restrictor"), // https://commons.wikimedia.org/wiki/File:Sainsbury%27s_car_park_height_restriction_barrier,_Chingford,_London,_England_1.jpg
-    FULL_HEIGHT_TURNSTILE("full-height_turnstile"), // https://en.wikipedia.org/wiki/File:Type_B_Series_Roto-Gate.jpg
+    FULL_HEIGHT_TURNSTILE("full-height_turnstile"), // https://commons.wikimedia.org/wiki/File:Fairmount_station_2018b.JPG
     TURNSTILE("turnstile"), // https://commons.wikimedia.org/wiki/File:%D0%A2%D1%83%D1%80%D0%BD%D0%B8%D0%BA%D0%B5%D1%82%D1%8B_%D0%B4%D0%BB%D1%8F_%D0%BC%D0%BE%D0%B4%D1%83%D0%BB%D1%8F_%22%D0%92%D1%85%D0%BE%D0%B4-%D0%B2%D1%8B%D1%85%D0%BE%D0%B4%22.JPG
     PASSAGE("entrance"), // https://wiki.openstreetmap.org/wiki/File:Archway_between_walled_gardens,_Greenway_-_geograph.org.uk_-_191221.jpg # https://commons.wikimedia.org/wiki/File:Doorgang_in_muur._Locatie,_Chinese_tuin_Het_Verborgen_Rijk_van_Ming._Locatie._Hortus_Haren_01.jpg?fastcci_from=69893&c1=69893&d1=15&s=200&a=fqv
     DEBRIS_PILE("debris"), //??????????? // https://wiki.openstreetmap.org/wiki/File:Barrier_debris.jpg

@@ -1003,7 +1003,7 @@ Otherwise, you can download another keyboard in the app store. Popular keyboards
     <string name="quest_barrier_jersey_barrier">Jersey barrier</string>
     <string name="quest_barrier_type_log">Log</string>
     <string name="quest_barrier_type_kerb">Kerb</string>
-    <string name="quest_barrier_type_height_restrictor">Height restrictor</string>
+    <string name="quest_barrier_type_height_restrictor">Height barrier</string>
     <string name="quest_barrier_full_height_turnstile">Full height turnstile</string>
     <string name="quest_barrier_type_turnstile">Turnstile</string>
     <string name="quest_barrier_type_passage">Passage through wall/fence/etc</string>
