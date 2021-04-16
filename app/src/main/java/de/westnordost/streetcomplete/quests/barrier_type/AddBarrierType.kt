@@ -3,7 +3,6 @@ package de.westnordost.streetcomplete.quests.bike_parking_type
 import de.westnordost.streetcomplete.R
 import de.westnordost.streetcomplete.data.osm.osmquest.OsmFilterQuestType
 import de.westnordost.streetcomplete.data.osm.changes.StringMapChangesBuilder
-import de.westnordost.streetcomplete.quests.bench_backrest.BenchBackrestAnswer
 
 class AddBarrierType : OsmFilterQuestType<BarrierType>() {
 
